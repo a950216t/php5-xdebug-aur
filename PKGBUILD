@@ -27,15 +27,6 @@ build() {
         --with-php-config=/usr/bin/php-config5 \
         --localstatedir=/var
     make
-
-    cd "${srcdir}/${_pkgbase}-${_pkgver}/debugclient"
-    ./buildconf
-    ./configure \
-        --config-cache \
-        --sysconfdir=/etc/php5 \
-        --with-php-config=/usr/bin/php-config5 \
-        --localstatedir=/var
-    make
 }
 
 check() {
@@ -47,6 +38,4 @@ package() {
     cd "${srcdir}/${_pkgbase}-${_pkgver}"
     make INSTALL_ROOT="$pkgdir" install
     install -D -m644 "${srcdir}/xdebug.ini" "${pkgdir}/etc/php5/conf.d/xdebug.ini"
-
-    install -D -m755 "./debugclient/debugclient" "${pkgdir}/usr/bin/debugclient5"
 }
